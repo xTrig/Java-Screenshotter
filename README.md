@@ -8,6 +8,6 @@ To screenshot, left click the icon in the system tray. This will bring up a scre
 
 ## Configuration
 
-Site: The link to the site you will be uploading to. Must contain a trailing '/'
-Script: The name of the PHP script you will be sending the file to
-Secret: The API key for authentication
+- Site: The link to the site you will be uploading to. Must contain a trailing '/'
+- Script: The name of the PHP script you will be sending the file to
+- Secret: The API key for authentication
