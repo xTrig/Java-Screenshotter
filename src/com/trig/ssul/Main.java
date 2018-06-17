@@ -86,7 +86,7 @@ public class Main {
 			SystemTray tray = SystemTray.getSystemTray();
 			Image image = null;
 			try {
-				image = ImageIO.read(Main.class.getClassLoader().getResource("resources/logo.jpeg"));
+				image = ImageIO.read(Main.class.getClassLoader().getResource("resources/logo.png"));
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
