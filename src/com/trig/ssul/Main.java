@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
+import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -84,13 +85,7 @@ public class Main {
 	private static void createSystemTray() {
 		if(SystemTray.isSupported()) {
 			SystemTray tray = SystemTray.getSystemTray();
-			Image image = null;
-			try {
-				image = ImageIO.read(Main.class.getClassLoader().getResource("resources/logo.png"));
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			Image image = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("logo.png"));
 			
 			
 			
