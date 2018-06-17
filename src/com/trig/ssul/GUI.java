@@ -12,6 +12,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -140,7 +143,7 @@ public class GUI extends JFrame {
 			region = new Rectangle(0, 0, screen.width, screen.height);
 		}
 		BufferedImage img = robot.createScreenCapture(region); //Create a screenshot from the region specified.
-		
+		playSound("screenshot.wav");
 		try {
 			System.out.print("Saving screenshot... ");
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:MM:ss"); //We'll give the screenshot a name with the current time
@@ -175,5 +178,18 @@ public class GUI extends JFrame {
 		siteField.setText(Main.getSiteConfig().getBaseURL());
 		scriptField.setText(Main.getSiteConfig().getUploadScript());
 		secretField.setText(Main.getSiteConfig().getSecret());
+	}
+	
+	private void playSound(String soundEffect) {
+		try {
+			AudioInputStream audioIn = AudioSystem.getAudioInputStream(ClassLoader.getSystemResourceAsStream(soundEffect));
+			
+			Clip clip = AudioSystem.getClip();
+			
+			clip.open(audioIn);
+	        clip.start();
+		} catch (Exception exc) {
+			exc.printStackTrace();
+		}
 	}
 }
