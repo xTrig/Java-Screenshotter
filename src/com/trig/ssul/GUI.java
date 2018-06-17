@@ -157,6 +157,10 @@ public class GUI extends JFrame {
 	 * Saves the config from the main panel
 	 */
 	private void saveSiteConfig() {
+		
+		if(!siteField.getText().endsWith("/")) {
+			siteField.setText(siteField.getText() + "/");
+		}
 		Main.getSiteConfig().setBaseURL(siteField.getText().trim());
 		Main.getSiteConfig().setUploadScript(scriptField.getText().trim());
 		Main.getSiteConfig().setSecret(secretField.getText().trim());

@@ -21,6 +21,11 @@ public class ScreenshotUploader {
 	
 	public ScreenshotUploader(SiteConfig config) {
 		this.config = config;
+		
+		if(!config.getBaseURL().endsWith("/")) {
+			config.setBaseURL(config.getBaseURL() + "/");
+		}
+		Main.saveSiteConfig();
 	}
 	
 	public void upload(File screenshot) {
