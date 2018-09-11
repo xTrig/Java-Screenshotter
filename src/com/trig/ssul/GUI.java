@@ -44,7 +44,7 @@ public class GUI extends JFrame {
 		setResizable(false);
 		setTitle("Screenshot Uploader v0.0.1");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 350);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -135,18 +135,19 @@ public class GUI extends JFrame {
 	
 	/**
 	 * This method is called whenever the ScreenCapture selection is complete.
+	 * @param img The original screenshot we took when the user clicked the icon
 	 * @param region The region of the original screenshot to save.
 	 */
-	public void processSelection(Rectangle region) {
+	public void processSelection(BufferedImage img, Rectangle region) {
 		if(region == null || region.isEmpty()) { //If the region is invalid, we assume they want the whole screenshot
-			Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-			region = new Rectangle(0, 0, screen.width, screen.height);
+			Dimension screenDim = Toolkit.getDefaultToolkit().getScreenSize();
+			region = new Rectangle(0, 0, screenDim.width, screenDim.height);
 		}
-		BufferedImage img = robot.createScreenCapture(region); //Create a screenshot from the region specified.
+		img = img.getSubimage(region.x, region.y, region.width, region.height); //We need to crop the original image to fit the new size
 		playSound("screenshot.wav");
 		try {
 			System.out.print("Saving screenshot... ");
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:MM:ss"); //We'll give the screenshot a name with the current time
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh-MM-ss"); //We'll give the screenshot a name with the current time
 			File screenshot = new File(Main.HOME + "/screenshots/" + sdf.format(new Date(System.currentTimeMillis())) + ".png"); //Create the File object
 			ImageIO.write(img, "png", screenshot); //Write the image to the disk
 			System.out.println(screenshot.getName());
