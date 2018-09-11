@@ -52,7 +52,7 @@ public class ScreenCaptureRectangle {
 			}
 		});
 		JOptionPane.showMessageDialog(null, screenScroll);
-		gui.processSelection(captureRect);
+		gui.processSelection(screen, captureRect); //We needed to pass in the screenshot we received when we created this GUI.
 	}
 
 	public void repaint(BufferedImage orig, BufferedImage copy) {
