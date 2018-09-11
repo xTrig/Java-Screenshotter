@@ -67,14 +67,21 @@ public class Main {
 		File cfg = new File(HOME + "/config.json");
 		if(!cfg.exists()) {
 			try {
+				System.out.print("Creating config file... ");
 				cfg.createNewFile();
-				BufferedReader reader = new BufferedReader(new InputStreamReader(Main.class.getClassLoader().getResourceAsStream("resources/config.json")));
+				System.out.println("Complete!");
+				System.out.print("Writing contents of config file... ");
+				BufferedReader reader = new BufferedReader(new InputStreamReader(Main.class.getClassLoader().getResourceAsStream("config.json")));
 				BufferedWriter writer = new BufferedWriter(new FileWriter(cfg));
-				
-				String data = reader.readLine();
-				writer.write(data);
+				String data;
+				int lines = 0;
+				while((data = reader.readLine()) != null) {
+					writer.write(data);
+					lines++;
+				}
 				writer.close();
 				reader.close();
+				System.out.println("Complete! Wrote " + lines + " lines to file!");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -124,8 +131,10 @@ public class Main {
 
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					System.out.println("Starting screen capture...");
-					gui.startRegionSelection();
+					if(e.getButton() == MouseEvent.BUTTON1) {
+						System.out.println("Starting screen capture...");
+						gui.startRegionSelection();
+					}
 				}
 
 				@Override
